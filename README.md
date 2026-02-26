@@ -1,223 +1,138 @@
-# 03-Webhooks-Inventory-Management-System
+# Webhooks Inventory Management System — Notifications Service (Django + DRF)
 
-A webhook integration service designed to enable real-time communication between services of the inventory management system.  This project is a continuation and extension of the main inventory management system, providing webhook functionality for event-driven architecture and external integrations.
+This project is a small Django service (with Django REST Framework) that exposes a **webhook endpoint** to receive order/sale events and trigger **notifications**.
 
-This service works in conjunction with the main project:  [02-Inventory-Management-System](https://github.com/GabrielDLobo/02-Inventory-Management-System)
+It is designed to complement the main inventory system by handling integrations and alerts separately.
 
-## Main Features
+## What it does
 
-- Real-time webhook event handling for inventory operations
-- Integration with external services via HTTP callbacks
-- Message delivery system using CallMeBot API
-- Event logging and monitoring
-- RESTful API endpoints for webhook management
-- Asynchronous event processing
-- Secure webhook validation and authentication
+When an order/sale webhook is received, the service:
 
----
+1. **Persists the raw event** (JSON) to the database for traceability.
+2. **Computes business values** such as:
+   - `total_value = product_selling_price * quantity`
+   - `profit_value = total_value - (product_cost_price * quantity)`
+3. Sends notifications:
+   - **Message notification** via CallMeBot (typically WhatsApp/Telegram depending on your setup).
+   - **Email notification** (HTML template) to the configured admin receiver.
 
-## Table of Contents
+## Tech Stack
 
-- [Technologies](#technologies)
-- [Requirements](#requirements)
-- [Setup Instructions](#setup-instructions)
-- [Running Locally](#running-locally)
-- [Development Mode](#development-mode)
-- [Integration](#integration)
-- [License](#license)
+- Python / Django
+- Django REST Framework
+- SQLite (default, dev)
+- Email sending via Django `send_mail`
+- CallMeBot integration (HTTP request)
 
----
+## Webhook Endpoint
 
-## Technologies
+### `POST /api/V1/webhooks/order/`
 
-This project leverages the following key technologies:
+**Expected payload fields** (typical):
 
-- **Backend**:
-  - Django 5.2.5
-  - Django Rest Framework 3.16.1
-  - Python 3.8+
-- **Webhook Management**:
-  - webhooks 0.4.2
-  - standardjson 0.3.1
-  - uuid 1.30
-- **External Services**:
-  - CallMeBot API integration
-  - requests 2.32.4
-- **Configuration**:
-  - python-decouple 3.8
+- `event_type` (string)
+- `product` (string)
+- `quantity` (number)
+- `product_cost_price` (number)
+- `product_selling_price` (number)
 
----
+**Response**
 
-## Requirements
+- Returns the received payload plus computed fields:
+  - `total_value`
+  - `profit_value`
 
-Make sure you have the following installed: 
+### Example request
 
-- Python 3.8+
-- pip (Python package manager)
-- Access to the main Inventory Management System
-- CallMeBot API credentials (optional, for notifications)
+```bash
+curl -X POST http://127.0.0.1:8000/api/V1/webhooks/order/ \
+  -H "Content-Type: application/json" \
+  -d '{
+    "event_type": "outflow_created",
+    "product": "Notebook",
+    "quantity": 2,
+    "product_cost_price": 2500,
+    "product_selling_price": 3200
+  }'
+```
 
----
+## Configuration
 
-## Setup Instructions
+This service typically requires environment variables (or settings) for:
 
-### Clone the Repository
+### Email
+
+- `EMAIL_HOST`
+- `EMAIL_PORT`
+- `EMAIL_HOST_USER`
+- `EMAIL_HOST_PASSWORD`
+- `EMAIL_USE_TLS` (or SSL)
+- `EMAIL_ADMIN_RECEIVER` (recipient)
+
+### CallMeBot
+
+- `CALLMEBOT_API_URL`
+- `CALLMEBOT_PHONE_NUMBER`
+- `CALLMEBOT_API_KEY`
+
+> Tip: use `python-decouple` or a `.env` file and read the values in `settings.py`.
+
+## Getting Started (development)
+
+### 1) Clone and create a virtual environment
 
 ```bash
 git clone https://github.com/GabrielDLobo/03-Webhooks-Inventory-Management-System.git
 cd 03-Webhooks-Inventory-Management-System
+
+python -m venv .venv
+# Linux/Mac:
+source .venv/bin/activate
+# Windows:
+# .venv\Scripts\activate
 ```
 
-### Install Dependencies
+### 2) Install dependencies
 
-Install Python dependencies:
+If the repository has a `requirements.txt`:
 
 ```bash
 pip install -r requirements.txt
 ```
 
-### Configure Environment Variables
-
-Create a `.env` file in the project root:
-
-```env
-SECRET_KEY=your-secret-key-here
-DEBUG=True
-ALLOWED_HOSTS=localhost,127.0.0.1
-
-CALLMEBOT_API_KEY=your-callmebot-api-key
-CALLMEBOT_PHONE_NUMBER=your-phone-number
-
-MAIN_INVENTORY_URL=http://localhost:8000
-```
-
-### Run Database Migrations
+Minimum recommended:
 
 ```bash
-python manage.py makemigrations
+pip install django djangorestframework python-decouple requests
+```
+
+### 3) Run migrations
+
+```bash
 python manage.py migrate
 ```
 
----
-
-## Running Locally
-
-### Without Docker
-
-1. Run database migrations:
-   ```bash
-   python manage.py migrate
-   ```
-
-2. Start the development server:
-   ```bash
-   python manage.py runserver 8001
-   ```
-
-3. Access the webhook service at `http://localhost:8001`.
-
-Note: This service typically runs on a different port than the main inventory system to avoid conflicts.
-
----
-
-## Development Mode
-
-When developing, you can use the provided `manage.py` file to run jobs, migrations, and other Django commands. 
-
-### Testing Webhooks
-
-You can test webhook endpoints using curl or any HTTP client:
+### 4) Run the server
 
 ```bash
-curl -X POST http://localhost:8001/webhooks/endpoint/ \
-  -H "Content-Type: application/json" \
-  -d '{"event":  "product.created", "data": {... }}'
+python manage.py runserver
 ```
 
----
+## Relationship with the core Inventory Management System
 
-## Project Structure
+- **02-Inventory-Management-System** is the main application where inventory and sales are recorded.
+- This repository acts as an **integration boundary** to:
+  - receive events from the core system (or any external system),
+  - store webhook events,
+  - notify users/admins via messaging and email.
 
-```
-.
-|-- app/
-|-- webhooks/
-|   |-- models.py
-|   |-- views.py
-|   |-- admin.py
-|   |-- messages.py
-|   |-- templates/
-|   |-- migrations/
-|-- services/
-|   |-- callmebot.py
-```
+## Notes / Known Issues
 
-- `webhooks/` - Main webhook application module
-- `services/` - External service integrations (CallMeBot, etc.)
-- `models.py` - Webhook event models and data structures
-- `views.py` - API endpoints for webhook processing
-- `messages.py` - Message templates and formatting
-- `callmebot.py` - CallMeBot API integration for notifications
-
----
-
-## Integration
-
-### Connecting to Main Inventory System
-
-This webhook service is designed to work alongside the main inventory management system. Configure the main system to send webhook events to this service: 
-
-1. Set the webhook URL in the main inventory system settings
-2. Configure authentication tokens for secure communication
-3. Define which events should trigger webhooks (product updates, stock changes, etc.)
-
-### Supported Webhook Events
-
-- Product creation and updates
-- Stock level changes
-- Inflow and outflow operations
-- Supplier updates
-- Category and brand modifications
-
-### External Service Integration
-
-The service currently supports integration with CallMeBot for WhatsApp notifications. Additional integrations can be added in the `services/` directory.
-
----
-
-## API Endpoints
-
-The service exposes RESTful endpoints for webhook management:
-
-- `POST /webhooks/receive/` - Receive webhook events
-- `GET /webhooks/logs/` - View webhook delivery logs
-- `POST /webhooks/retry/` - Retry failed webhook deliveries
-
----
-
-## Security
-
-- Validate webhook signatures to ensure authenticity
-- Use HTTPS in production environments
-- Store API keys and secrets in environment variables
-- Implement rate limiting to prevent abuse
-- Log all webhook activities for audit purposes
-
----
+Review the CallMeBot service implementation to ensure request parameter names and variables are correct (e.g., `url` vs `urf`, `response` naming). If notifications are not being delivered, start debugging there first.
 
 ## License
 
-This project is open source, but no license was explicitly defined. 
-
-Feel free to clone, use, and contribute back! 
-
----
-
-## Contributing
-
-Pull requests are welcome!  For large changes, consider opening an issue first to discuss what you would like to change.
-
----
+No license is currently defined in this repository.
 
 ## Related Projects
 
