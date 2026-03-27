@@ -13,7 +13,6 @@ Welcome to the **Webhooks Inventory Management System** documentation. This guid
 - [Project Structure](project-structure.md) - Directory and file organization
 - [Guidelines](guidelines.md) - Coding standards and conventions
 - [Development](development.md) - Workflow and development practices
-- [Testing](testing.md) - Testing strategy and execution
 
 ### Technical Documentation
 

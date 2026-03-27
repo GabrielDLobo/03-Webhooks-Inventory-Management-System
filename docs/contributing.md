@@ -535,6 +535,5 @@ Every contribution, no matter how small, helps make this project better. We appr
 ## Next Steps
 
 - Review [Development Guide](development.md) for development practices
-- Check [Testing Guide](testing.md) for testing requirements
 - Read [API Endpoints](api-endpoints.md) to understand the system
 - Look at [Good First Issues](https://github.com/your-repo/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22)

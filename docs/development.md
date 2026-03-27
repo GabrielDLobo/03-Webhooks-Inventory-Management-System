@@ -585,6 +585,5 @@ Use appropriate HTTP status codes:
 
 ## Next Steps
 
-- Review [Testing Guide](testing.md) for testing practices
 - Check [API Endpoints](api-endpoints.md) for API documentation
 - See [Contributing Guide](contributing.md) for contribution guidelines

@@ -19,7 +19,6 @@
 │   ├── system-modeling.md
 │   ├── authentication-security.md
 │   ├── development.md
-│   ├── testing.md
 │   ├── deploy.md
 │   ├── contributing.md
 │   └── release-notes.md
