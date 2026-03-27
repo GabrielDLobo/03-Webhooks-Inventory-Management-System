@@ -33,7 +33,6 @@ nav:
   - System Modeling: system-modeling.md
   - Authentication & Security: authentication-security.md
   - Development: development.md
-  - Testing: testing.md
   - Deploy: deploy.md
   - Contributing: contributing.md
   - Release Notes: release-notes.md
