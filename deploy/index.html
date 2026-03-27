@@ -1,0 +1,2390 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Documentation for the Django webhook notification service">
+      
+      
+      
+        <link rel="canonical" href="https://gabrieldlobo.github.io/03-Webhooks-Inventory-Management-System/deploy/">
+      
+      
+        <link rel="prev" href="../testing/">
+      
+      
+        <link rel="next" href="../contributing/">
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.12">
+    
+    
+      
+        <title>Deploy - Webhooks Inventory Management System</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.2afb09e1.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="green" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#deploy-guide" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Webhooks Inventory Management System" class="md-header__button md-logo" aria-label="Webhooks Inventory Management System" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Webhooks Inventory Management System
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Deploy
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="green" data-md-color-accent="indigo"  aria-hidden="true"  type="radio" name="__palette" id="__palette_0">
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/GabrielDLobo/03-Webhooks-Inventory-Management-System" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GabrielDLobo/03-Webhooks-Inventory-Management-System
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Webhooks Inventory Management System" class="md-nav__button md-logo" aria-label="Webhooks Inventory Management System" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Webhooks Inventory Management System
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/GabrielDLobo/03-Webhooks-Inventory-Management-System" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GabrielDLobo/03-Webhooks-Inventory-Management-System
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../getting-started/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Getting Started
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../project-structure/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Project Structure
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../guidelines/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Guidelines
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api-endpoints/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    API Endpoints
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../system-modeling/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    System Modeling
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../authentication-security/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Authentication & Security
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../development/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Development
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../testing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Testing
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Deploy
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Deploy
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      Overview
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deployment-checklist" class="md-nav__link">
+    <span class="md-ellipsis">
+      Deployment Checklist
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Deployment Checklist">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pre-deployment" class="md-nav__link">
+    <span class="md-ellipsis">
+      Pre-Deployment
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deployment" class="md-nav__link">
+    <span class="md-ellipsis">
+      Deployment
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#post-deployment" class="md-nav__link">
+    <span class="md-ellipsis">
+      Post-Deployment
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#production-requirements" class="md-nav__link">
+    <span class="md-ellipsis">
+      Production Requirements
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Production Requirements">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#server-requirements" class="md-nav__link">
+    <span class="md-ellipsis">
+      Server Requirements
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#software-requirements" class="md-nav__link">
+    <span class="md-ellipsis">
+      Software Requirements
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#environment-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Environment Configuration
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Environment Configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#production-environment-variables" class="md-nav__link">
+    <span class="md-ellipsis">
+      Production Environment Variables
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#database-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      Database Setup
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Database Setup">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#postgresql-setup-recommended" class="md-nav__link">
+    <span class="md-ellipsis">
+      PostgreSQL Setup (Recommended)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sqlite-developmentsmall-deployments" class="md-nav__link">
+    <span class="md-ellipsis">
+      SQLite (Development/Small Deployments)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#web-server-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Web Server Configuration
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Web Server Configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#nginx-gunicorn" class="md-nav__link">
+    <span class="md-ellipsis">
+      Nginx + Gunicorn
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Nginx + Gunicorn">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-install-gunicorn" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Install Gunicorn
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-create-gunicorn-systemd-service" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Create Gunicorn Systemd Service
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-configure-nginx" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Configure Nginx
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-configure-rate-limiting" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Configure Rate Limiting
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-enable-site" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. Enable Site
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ssltls-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      SSL/TLS Configuration
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="SSL/TLS Configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#lets-encrypt-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      Let's Encrypt Setup
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#manual-ssl-certificate" class="md-nav__link">
+    <span class="md-ellipsis">
+      Manual SSL Certificate
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#django-production-settings" class="md-nav__link">
+    <span class="md-ellipsis">
+      Django Production Settings
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Django Production Settings">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#settingspy" class="md-nav__link">
+    <span class="md-ellipsis">
+      settings.py
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deployment-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      Deployment Steps
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Deployment Steps">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-prepare-server" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Prepare Server
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-deploy-code" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Deploy Code
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-configure-environment" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Configure Environment
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-setup-database" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Setup Database
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-configure-web-server" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. Configure Web Server
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-start-services" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. Start Services
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#7-verify-deployment" class="md-nav__link">
+    <span class="md-ellipsis">
+      7. Verify Deployment
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#monitoring" class="md-nav__link">
+    <span class="md-ellipsis">
+      Monitoring
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Monitoring">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#health-check-endpoint" class="md-nav__link">
+    <span class="md-ellipsis">
+      Health Check Endpoint
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#monitoring-tools" class="md-nav__link">
+    <span class="md-ellipsis">
+      Monitoring Tools
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Monitoring Tools">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-django-debug-toolbar-development-only" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Django Debug Toolbar (Development Only)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-sentry-error-tracking" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Sentry (Error Tracking)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-prometheus-grafana" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Prometheus + Grafana
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#backup-strategy" class="md-nav__link">
+    <span class="md-ellipsis">
+      Backup Strategy
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Backup Strategy">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#database-backup" class="md-nav__link">
+    <span class="md-ellipsis">
+      Database Backup
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#media-backup" class="md-nav__link">
+    <span class="md-ellipsis">
+      Media Backup
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rollback-plan" class="md-nav__link">
+    <span class="md-ellipsis">
+      Rollback Plan
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Rollback Plan">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#quick-rollback" class="md-nav__link">
+    <span class="md-ellipsis">
+      Quick Rollback
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#performance-optimization" class="md-nav__link">
+    <span class="md-ellipsis">
+      Performance Optimization
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Performance Optimization">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#gunicorn-tuning" class="md-nav__link">
+    <span class="md-ellipsis">
+      Gunicorn Tuning
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#database-optimization" class="md-nav__link">
+    <span class="md-ellipsis">
+      Database Optimization
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#caching" class="md-nav__link">
+    <span class="md-ellipsis">
+      Caching
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      Troubleshooting
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Troubleshooting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#common-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      Common Issues
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Common Issues">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-502-bad-gateway" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. 502 Bad Gateway
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-database-connection-errors" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Database Connection Errors
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-static-files-not-loading" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Static Files Not Loading
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#next-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      Next Steps
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../contributing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Contributing
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../release-notes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Release Notes
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      Overview
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deployment-checklist" class="md-nav__link">
+    <span class="md-ellipsis">
+      Deployment Checklist
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Deployment Checklist">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pre-deployment" class="md-nav__link">
+    <span class="md-ellipsis">
+      Pre-Deployment
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deployment" class="md-nav__link">
+    <span class="md-ellipsis">
+      Deployment
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#post-deployment" class="md-nav__link">
+    <span class="md-ellipsis">
+      Post-Deployment
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#production-requirements" class="md-nav__link">
+    <span class="md-ellipsis">
+      Production Requirements
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Production Requirements">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#server-requirements" class="md-nav__link">
+    <span class="md-ellipsis">
+      Server Requirements
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#software-requirements" class="md-nav__link">
+    <span class="md-ellipsis">
+      Software Requirements
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#environment-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Environment Configuration
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Environment Configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#production-environment-variables" class="md-nav__link">
+    <span class="md-ellipsis">
+      Production Environment Variables
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#database-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      Database Setup
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Database Setup">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#postgresql-setup-recommended" class="md-nav__link">
+    <span class="md-ellipsis">
+      PostgreSQL Setup (Recommended)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sqlite-developmentsmall-deployments" class="md-nav__link">
+    <span class="md-ellipsis">
+      SQLite (Development/Small Deployments)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#web-server-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Web Server Configuration
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Web Server Configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#nginx-gunicorn" class="md-nav__link">
+    <span class="md-ellipsis">
+      Nginx + Gunicorn
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Nginx + Gunicorn">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-install-gunicorn" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Install Gunicorn
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-create-gunicorn-systemd-service" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Create Gunicorn Systemd Service
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-configure-nginx" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Configure Nginx
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-configure-rate-limiting" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Configure Rate Limiting
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-enable-site" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. Enable Site
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ssltls-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      SSL/TLS Configuration
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="SSL/TLS Configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#lets-encrypt-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      Let's Encrypt Setup
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#manual-ssl-certificate" class="md-nav__link">
+    <span class="md-ellipsis">
+      Manual SSL Certificate
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#django-production-settings" class="md-nav__link">
+    <span class="md-ellipsis">
+      Django Production Settings
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Django Production Settings">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#settingspy" class="md-nav__link">
+    <span class="md-ellipsis">
+      settings.py
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deployment-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      Deployment Steps
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Deployment Steps">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-prepare-server" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Prepare Server
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-deploy-code" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Deploy Code
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-configure-environment" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Configure Environment
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-setup-database" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Setup Database
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-configure-web-server" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. Configure Web Server
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-start-services" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. Start Services
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#7-verify-deployment" class="md-nav__link">
+    <span class="md-ellipsis">
+      7. Verify Deployment
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#monitoring" class="md-nav__link">
+    <span class="md-ellipsis">
+      Monitoring
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Monitoring">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#health-check-endpoint" class="md-nav__link">
+    <span class="md-ellipsis">
+      Health Check Endpoint
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#monitoring-tools" class="md-nav__link">
+    <span class="md-ellipsis">
+      Monitoring Tools
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Monitoring Tools">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-django-debug-toolbar-development-only" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Django Debug Toolbar (Development Only)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-sentry-error-tracking" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Sentry (Error Tracking)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-prometheus-grafana" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Prometheus + Grafana
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#backup-strategy" class="md-nav__link">
+    <span class="md-ellipsis">
+      Backup Strategy
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Backup Strategy">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#database-backup" class="md-nav__link">
+    <span class="md-ellipsis">
+      Database Backup
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#media-backup" class="md-nav__link">
+    <span class="md-ellipsis">
+      Media Backup
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rollback-plan" class="md-nav__link">
+    <span class="md-ellipsis">
+      Rollback Plan
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Rollback Plan">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#quick-rollback" class="md-nav__link">
+    <span class="md-ellipsis">
+      Quick Rollback
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#performance-optimization" class="md-nav__link">
+    <span class="md-ellipsis">
+      Performance Optimization
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Performance Optimization">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#gunicorn-tuning" class="md-nav__link">
+    <span class="md-ellipsis">
+      Gunicorn Tuning
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#database-optimization" class="md-nav__link">
+    <span class="md-ellipsis">
+      Database Optimization
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#caching" class="md-nav__link">
+    <span class="md-ellipsis">
+      Caching
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#troubleshooting" class="md-nav__link">
+    <span class="md-ellipsis">
+      Troubleshooting
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Troubleshooting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#common-issues" class="md-nav__link">
+    <span class="md-ellipsis">
+      Common Issues
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Common Issues">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-502-bad-gateway" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. 502 Bad Gateway
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-database-connection-errors" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Database Connection Errors
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-static-files-not-loading" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Static Files Not Loading
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#next-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      Next Steps
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="deploy-guide">Deploy Guide</h1>
+<h2 id="overview">Overview</h2>
+<p>This document provides instructions for deploying the Webhooks Inventory Management System to production.</p>
+<hr />
+<h2 id="deployment-checklist">Deployment Checklist</h2>
+<h3 id="pre-deployment">Pre-Deployment</h3>
+<ul>
+<li>[ ] All tests passing</li>
+<li>[ ] Security review completed</li>
+<li>[ ] Environment variables documented</li>
+<li>[ ] Database backup strategy defined</li>
+<li>[ ] Rollback plan prepared</li>
+<li>[ ] Monitoring configured</li>
+<li>[ ] SSL certificates obtained</li>
+</ul>
+<h3 id="deployment">Deployment</h3>
+<ul>
+<li>[ ] Production environment configured</li>
+<li>[ ] Database migrations applied</li>
+<li>[ ] Static files collected</li>
+<li>[ ] Web server configured</li>
+<li>[ ] HTTPS enabled</li>
+<li>[ ] Health checks passing</li>
+</ul>
+<h3 id="post-deployment">Post-Deployment</h3>
+<ul>
+<li>[ ] Smoke tests passing</li>
+<li>[ ] Monitoring alerts configured</li>
+<li>[ ] Logs accessible</li>
+<li>[ ] Performance baseline established</li>
+</ul>
+<hr />
+<h2 id="production-requirements">Production Requirements</h2>
+<h3 id="server-requirements">Server Requirements</h3>
+<table>
+<thead>
+<tr>
+<th>Resource</th>
+<th>Minimum</th>
+<th>Recommended</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CPU</td>
+<td>1 core</td>
+<td>2+ cores</td>
+</tr>
+<tr>
+<td>RAM</td>
+<td>512 MB</td>
+<td>2+ GB</td>
+</tr>
+<tr>
+<td>Storage</td>
+<td>5 GB</td>
+<td>20+ GB</td>
+</tr>
+<tr>
+<td>Network</td>
+<td>10 Mbps</td>
+<td>100+ Mbps</td>
+</tr>
+</tbody>
+</table>
+<h3 id="software-requirements">Software Requirements</h3>
+<ul>
+<li>Python 3.10+</li>
+<li>PostgreSQL (recommended) or SQLite</li>
+<li>Nginx or Apache</li>
+<li>Gunicorn or uWSGI</li>
+<li>SSL/TLS certificates</li>
+</ul>
+<hr />
+<h2 id="environment-configuration">Environment Configuration</h2>
+<h3 id="production-environment-variables">Production Environment Variables</h3>
+<div class="highlight"><pre><span></span><code># Django Settings
+DEBUG=False
+SECRET_KEY=&lt;strong-random-secret-key&gt;
+ALLOWED_HOSTS=your-domain.com,www.your-domain.com
+
+# Database (PostgreSQL recommended)
+DATABASE_ENGINE=django.db.backends.postgresql
+DATABASE_NAME=webhooks_db
+DATABASE_USER=webhooks_user
+DATABASE_PASSWORD=&lt;strong-password&gt;
+DATABASE_HOST=localhost
+DATABASE_PORT=5432
+
+# CallMeBot Configuration
+CALLMEBOT_API_URL=https://api.callmebot.com/whatsapp.php
+CALLMEBOT_PHONE_NUMBER=+1234567890
+CALLMEBOT_API_KEY=&lt;your-api-key&gt;
+
+# Email Configuration
+EMAIL_HOST=smtp.gmail.com
+EMAIL_PORT=587
+EMAIL_HOST_USER=notifications@your-domain.com
+EMAIL_HOST_PASSWORD=&lt;app-password&gt;
+EMAIL_ADMIN_RECEIVER=admin@your-domain.com
+EMAIL_USE_TLS=True
+
+# Security
+WEBHOOK_API_KEY=&lt;secure-webhook-api-key&gt;
+SECURE_SSL_REDIRECT=True
+SESSION_COOKIE_SECURE=True
+CSRF_COOKIE_SECURE=True
+</code></pre></div>
+<hr />
+<h2 id="database-setup">Database Setup</h2>
+<h3 id="postgresql-setup-recommended">PostgreSQL Setup (Recommended)</h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># Install PostgreSQL</span>
+<span class="c1"># Ubuntu/Debian</span>
+sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>postgresql<span class="w"> </span>postgresql-contrib
+
+<span class="c1"># Create database and user</span>
+sudo<span class="w"> </span>-u<span class="w"> </span>postgres<span class="w"> </span>psql
+
+CREATE<span class="w"> </span>DATABASE<span class="w"> </span>webhooks_db<span class="p">;</span>
+CREATE<span class="w"> </span>USER<span class="w"> </span>webhooks_user<span class="w"> </span>WITH<span class="w"> </span>PASSWORD<span class="w"> </span><span class="s1">&#39;strong-password&#39;</span><span class="p">;</span>
+ALTER<span class="w"> </span>ROLE<span class="w"> </span>webhooks_user<span class="w"> </span>SET<span class="w"> </span>client_encoding<span class="w"> </span>TO<span class="w"> </span><span class="s1">&#39;utf8&#39;</span><span class="p">;</span>
+ALTER<span class="w"> </span>ROLE<span class="w"> </span>webhooks_user<span class="w"> </span>SET<span class="w"> </span>default_transaction_isolation<span class="w"> </span>TO<span class="w"> </span><span class="s1">&#39;read committed&#39;</span><span class="p">;</span>
+ALTER<span class="w"> </span>ROLE<span class="w"> </span>webhooks_user<span class="w"> </span>SET<span class="w"> </span>timezone<span class="w"> </span>TO<span class="w"> </span><span class="s1">&#39;UTC&#39;</span><span class="p">;</span>
+GRANT<span class="w"> </span>ALL<span class="w"> </span>PRIVILEGES<span class="w"> </span>ON<span class="w"> </span>DATABASE<span class="w"> </span>webhooks_db<span class="w"> </span>TO<span class="w"> </span>webhooks_user<span class="p">;</span>
+<span class="se">\q</span>
+</code></pre></div>
+<p><strong>Django Settings:</strong>
+<div class="highlight"><pre><span></span><code><span class="c1"># settings.py</span>
+<span class="n">DATABASES</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;default&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s1">&#39;ENGINE&#39;</span><span class="p">:</span> <span class="s1">&#39;django.db.backends.postgresql&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;NAME&#39;</span><span class="p">:</span> <span class="n">config</span><span class="p">(</span><span class="s1">&#39;DATABASE_NAME&#39;</span><span class="p">),</span>
+        <span class="s1">&#39;USER&#39;</span><span class="p">:</span> <span class="n">config</span><span class="p">(</span><span class="s1">&#39;DATABASE_USER&#39;</span><span class="p">),</span>
+        <span class="s1">&#39;PASSWORD&#39;</span><span class="p">:</span> <span class="n">config</span><span class="p">(</span><span class="s1">&#39;DATABASE_PASSWORD&#39;</span><span class="p">),</span>
+        <span class="s1">&#39;HOST&#39;</span><span class="p">:</span> <span class="n">config</span><span class="p">(</span><span class="s1">&#39;DATABASE_HOST&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s1">&#39;localhost&#39;</span><span class="p">),</span>
+        <span class="s1">&#39;PORT&#39;</span><span class="p">:</span> <span class="n">config</span><span class="p">(</span><span class="s1">&#39;DATABASE_PORT&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s1">&#39;5432&#39;</span><span class="p">),</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></p>
+<h3 id="sqlite-developmentsmall-deployments">SQLite (Development/Small Deployments)</h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># settings.py</span>
+<span class="n">DATABASES</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;default&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s1">&#39;ENGINE&#39;</span><span class="p">:</span> <span class="s1">&#39;django.db.backends.sqlite3&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;NAME&#39;</span><span class="p">:</span> <span class="n">BASE_DIR</span> <span class="o">/</span> <span class="s1">&#39;db.sqlite3&#39;</span><span class="p">,</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<hr />
+<h2 id="web-server-configuration">Web Server Configuration</h2>
+<h3 id="nginx-gunicorn">Nginx + Gunicorn</h3>
+<h4 id="1-install-gunicorn">1. Install Gunicorn</h4>
+<div class="highlight"><pre><span></span><code>pip<span class="w"> </span>install<span class="w"> </span>gunicorn
+</code></pre></div>
+<h4 id="2-create-gunicorn-systemd-service">2. Create Gunicorn Systemd Service</h4>
+<div class="highlight"><pre><span></span><code><span class="c1"># /etc/systemd/system/webhooks.service</span>
+<span class="k">[Unit]</span>
+<span class="na">Description</span><span class="o">=</span><span class="s">Webhooks Inventory Management System</span>
+<span class="na">After</span><span class="o">=</span><span class="s">network.target</span>
+
+<span class="k">[Service]</span>
+<span class="na">User</span><span class="o">=</span><span class="s">www-data</span>
+<span class="na">Group</span><span class="o">=</span><span class="s">www-data</span>
+<span class="na">WorkingDirectory</span><span class="o">=</span><span class="s">/path/to/project</span>
+<span class="na">ExecStart</span><span class="o">=</span><span class="s">/path/to/venv/bin/gunicorn </span>\
+<span class="w">    </span><span class="s">--access-logfile - </span>\
+<span class="w">    </span><span class="s">--workers 3 </span>\
+<span class="w">    </span><span class="s">--bind unix:/path/to/project/webhooks.sock </span>\
+<span class="w">    </span><span class="s">app.wsgi:application</span>
+
+<span class="k">[Install]</span>
+<span class="na">WantedBy</span><span class="o">=</span><span class="s">multi-user.target</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="c1"># Enable and start service</span>
+sudo<span class="w"> </span>systemctl<span class="w"> </span>daemon-reload
+sudo<span class="w"> </span>systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>webhooks
+sudo<span class="w"> </span>systemctl<span class="w"> </span>start<span class="w"> </span>webhooks
+</code></pre></div>
+<h4 id="3-configure-nginx">3. Configure Nginx</h4>
+<div class="highlight"><pre><span></span><code><span class="c1"># /etc/nginx/sites-available/webhooks</span>
+<span class="k">server</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kn">listen</span><span class="w"> </span><span class="mi">80</span><span class="p">;</span>
+<span class="w">    </span><span class="kn">server_name</span><span class="w"> </span><span class="s">your-domain.com</span><span class="w"> </span><span class="s">www.your-domain.com</span><span class="p">;</span>
+
+<span class="w">    </span><span class="c1"># Redirect HTTP to HTTPS</span>
+<span class="w">    </span><span class="kn">return</span><span class="w"> </span><span class="mi">301</span><span class="w"> </span><span class="s">https://</span><span class="nv">$server_name$request_uri</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">server</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kn">listen</span><span class="w"> </span><span class="mi">443</span><span class="w"> </span><span class="s">ssl</span><span class="w"> </span><span class="s">http2</span><span class="p">;</span>
+<span class="w">    </span><span class="kn">server_name</span><span class="w"> </span><span class="s">your-domain.com</span><span class="w"> </span><span class="s">www.your-domain.com</span><span class="p">;</span>
+
+<span class="w">    </span><span class="c1"># SSL Configuration</span>
+<span class="w">    </span><span class="kn">ssl_certificate</span><span class="w"> </span><span class="s">/etc/letsencrypt/live/your-domain.com/fullchain.pem</span><span class="p">;</span>
+<span class="w">    </span><span class="kn">ssl_certificate_key</span><span class="w"> </span><span class="s">/etc/letsencrypt/live/your-domain.com/privkey.pem</span><span class="p">;</span>
+<span class="w">    </span><span class="kn">ssl_protocols</span><span class="w"> </span><span class="s">TLSv1.2</span><span class="w"> </span><span class="s">TLSv1.3</span><span class="p">;</span>
+<span class="w">    </span><span class="kn">ssl_ciphers</span><span class="w"> </span><span class="s">HIGH:!aNULL:!MD5</span><span class="p">;</span>
+<span class="w">    </span><span class="kn">ssl_prefer_server_ciphers</span><span class="w"> </span><span class="no">on</span><span class="p">;</span>
+
+<span class="w">    </span><span class="c1"># Security Headers</span>
+<span class="w">    </span><span class="kn">add_header</span><span class="w"> </span><span class="s">Strict-Transport-Security</span><span class="w"> </span><span class="s">&quot;max-age=31536000</span><span class="p">;</span><span class="w"> </span><span class="kn">includeSubDomains&quot;</span><span class="w"> </span><span class="s">always</span><span class="p">;</span>
+<span class="w">    </span><span class="kn">add_header</span><span class="w"> </span><span class="s">X-Content-Type-Options</span><span class="w"> </span><span class="s">nosniff</span><span class="w"> </span><span class="s">always</span><span class="p">;</span>
+<span class="w">    </span><span class="kn">add_header</span><span class="w"> </span><span class="s">X-Frame-Options</span><span class="w"> </span><span class="s">DENY</span><span class="w"> </span><span class="s">always</span><span class="p">;</span>
+<span class="w">    </span><span class="kn">add_header</span><span class="w"> </span><span class="s">X-XSS-Protection</span><span class="w"> </span><span class="s">&quot;1</span><span class="p">;</span><span class="w"> </span><span class="kn">mode=block&quot;</span><span class="w"> </span><span class="s">always</span><span class="p">;</span>
+
+<span class="w">    </span><span class="c1"># Logging</span>
+<span class="w">    </span><span class="kn">access_log</span><span class="w"> </span><span class="s">/var/log/nginx/webhooks_access.log</span><span class="p">;</span>
+<span class="w">    </span><span class="kn">error_log</span><span class="w"> </span><span class="s">/var/log/nginx/webhooks_error.log</span><span class="p">;</span>
+
+<span class="w">    </span><span class="c1"># Static files</span>
+<span class="w">    </span><span class="kn">location</span><span class="w"> </span><span class="s">/static/</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kn">alias</span><span class="w"> </span><span class="s">/path/to/project/static/</span><span class="p">;</span>
+<span class="w">        </span><span class="kn">expires</span><span class="w"> </span><span class="s">30d</span><span class="p">;</span>
+<span class="w">        </span><span class="kn">add_header</span><span class="w"> </span><span class="s">Cache-Control</span><span class="w"> </span><span class="s">&quot;public,</span><span class="w"> </span><span class="s">immutable&quot;</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="c1"># Media files</span>
+<span class="w">    </span><span class="kn">location</span><span class="w"> </span><span class="s">/media/</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kn">alias</span><span class="w"> </span><span class="s">/path/to/project/media/</span><span class="p">;</span>
+<span class="w">        </span><span class="kn">expires</span><span class="w"> </span><span class="s">7d</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="c1"># Proxy to Gunicorn</span>
+<span class="w">    </span><span class="kn">location</span><span class="w"> </span><span class="s">/</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kn">proxy_pass</span><span class="w"> </span><span class="s">http://unix:/path/to/project/webhooks.sock</span><span class="p">;</span>
+<span class="w">        </span><span class="kn">proxy_set_header</span><span class="w"> </span><span class="s">Host</span><span class="w"> </span><span class="nv">$host</span><span class="p">;</span>
+<span class="w">        </span><span class="kn">proxy_set_header</span><span class="w"> </span><span class="s">X-Real-IP</span><span class="w"> </span><span class="nv">$remote_addr</span><span class="p">;</span>
+<span class="w">        </span><span class="kn">proxy_set_header</span><span class="w"> </span><span class="s">X-Forwarded-For</span><span class="w"> </span><span class="nv">$proxy_add_x_forwarded_for</span><span class="p">;</span>
+<span class="w">        </span><span class="kn">proxy_set_header</span><span class="w"> </span><span class="s">X-Forwarded-Proto</span><span class="w"> </span><span class="nv">$scheme</span><span class="p">;</span>
+<span class="w">        </span><span class="kn">proxy_redirect</span><span class="w"> </span><span class="no">off</span><span class="p">;</span>
+
+<span class="w">        </span><span class="c1"># Timeouts</span>
+<span class="w">        </span><span class="kn">proxy_connect_timeout</span><span class="w"> </span><span class="s">60s</span><span class="p">;</span>
+<span class="w">        </span><span class="kn">proxy_send_timeout</span><span class="w"> </span><span class="s">60s</span><span class="p">;</span>
+<span class="w">        </span><span class="kn">proxy_read_timeout</span><span class="w"> </span><span class="s">60s</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="c1"># Rate Limiting</span>
+<span class="w">    </span><span class="kn">location</span><span class="w"> </span><span class="s">/api/</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="kn">limit_req</span><span class="w"> </span><span class="s">zone=api</span><span class="w"> </span><span class="s">burst=20</span><span class="w"> </span><span class="s">nodelay</span><span class="p">;</span>
+<span class="w">        </span><span class="kn">proxy_pass</span><span class="w"> </span><span class="s">http://unix:/path/to/project/webhooks.sock</span><span class="p">;</span>
+<span class="w">        </span><span class="kn">proxy_set_header</span><span class="w"> </span><span class="s">Host</span><span class="w"> </span><span class="nv">$host</span><span class="p">;</span>
+<span class="w">        </span><span class="kn">proxy_set_header</span><span class="w"> </span><span class="s">X-Real-IP</span><span class="w"> </span><span class="nv">$remote_addr</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<h4 id="4-configure-rate-limiting">4. Configure Rate Limiting</h4>
+<div class="highlight"><pre><span></span><code><span class="c1"># /etc/nginx/nginx.conf (http block)</span>
+<span class="k">http</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1"># Rate limiting zone</span>
+<span class="w">    </span><span class="kn">limit_req_zone</span><span class="w"> </span><span class="nv">$binary_remote_addr</span><span class="w"> </span><span class="s">zone=api:10m</span><span class="w"> </span><span class="s">rate=10r/s</span><span class="p">;</span>
+
+<span class="w">    </span><span class="c1"># ... rest of configuration</span>
+<span class="p">}</span>
+</code></pre></div>
+<h4 id="5-enable-site">5. Enable Site</h4>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>ln<span class="w"> </span>-s<span class="w"> </span>/etc/nginx/sites-available/webhooks<span class="w"> </span>/etc/nginx/sites-enabled/
+sudo<span class="w"> </span>nginx<span class="w"> </span>-t
+sudo<span class="w"> </span>systemctl<span class="w"> </span>restart<span class="w"> </span>nginx
+</code></pre></div>
+<hr />
+<h2 id="ssltls-configuration">SSL/TLS Configuration</h2>
+<h3 id="lets-encrypt-setup">Let's Encrypt Setup</h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># Install Certbot</span>
+sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>certbot<span class="w"> </span>python3-certbot-nginx
+
+<span class="c1"># Obtain certificate</span>
+sudo<span class="w"> </span>certbot<span class="w"> </span>--nginx<span class="w"> </span>-d<span class="w"> </span>your-domain.com<span class="w"> </span>-d<span class="w"> </span>www.your-domain.com
+
+<span class="c1"># Auto-renewal (already configured by certbot)</span>
+sudo<span class="w"> </span>certbot<span class="w"> </span>renew<span class="w"> </span>--dry-run
+</code></pre></div>
+<h3 id="manual-ssl-certificate">Manual SSL Certificate</h3>
+<div class="highlight"><pre><span></span><code><span class="k">ssl_certificate</span><span class="w"> </span><span class="s">/path/to/certificate.crt</span><span class="p">;</span>
+<span class="k">ssl_certificate_key</span><span class="w"> </span><span class="s">/path/to/private.key</span><span class="p">;</span>
+<span class="k">ssl_protocols</span><span class="w"> </span><span class="s">TLSv1.2</span><span class="w"> </span><span class="s">TLSv1.3</span><span class="p">;</span>
+<span class="k">ssl_ciphers</span><span class="w"> </span><span class="s">ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256</span><span class="p">;</span>
+<span class="k">ssl_prefer_server_ciphers</span><span class="w"> </span><span class="no">on</span><span class="p">;</span>
+<span class="k">ssl_session_cache</span><span class="w"> </span><span class="s">shared:SSL:10m</span><span class="p">;</span>
+<span class="k">ssl_session_timeout</span><span class="w"> </span><span class="mi">10m</span><span class="p">;</span>
+</code></pre></div>
+<hr />
+<h2 id="django-production-settings">Django Production Settings</h2>
+<h3 id="settingspy">settings.py</h3>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span><span class="w"> </span><span class="nn">decouple</span><span class="w"> </span><span class="kn">import</span> <span class="n">config</span><span class="p">,</span> <span class="n">Csv</span>
+
+<span class="c1"># Security</span>
+<span class="n">DEBUG</span> <span class="o">=</span> <span class="n">config</span><span class="p">(</span><span class="s1">&#39;DEBUG&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">cast</span><span class="o">=</span><span class="nb">bool</span><span class="p">)</span>
+<span class="n">SECRET_KEY</span> <span class="o">=</span> <span class="n">config</span><span class="p">(</span><span class="s1">&#39;SECRET_KEY&#39;</span><span class="p">)</span>
+<span class="n">ALLOWED_HOSTS</span> <span class="o">=</span> <span class="n">config</span><span class="p">(</span><span class="s1">&#39;ALLOWED_HOSTS&#39;</span><span class="p">,</span> <span class="n">cast</span><span class="o">=</span><span class="n">Csv</span><span class="p">())</span>
+
+<span class="c1"># HTTPS</span>
+<span class="n">SECURE_SSL_REDIRECT</span> <span class="o">=</span> <span class="n">config</span><span class="p">(</span><span class="s1">&#39;SECURE_SSL_REDIRECT&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">cast</span><span class="o">=</span><span class="nb">bool</span><span class="p">)</span>
+<span class="n">SESSION_COOKIE_SECURE</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="n">CSRF_COOKIE_SECURE</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="n">SECURE_HSTS_SECONDS</span> <span class="o">=</span> <span class="mi">31536000</span>
+<span class="n">SECURE_HSTS_INCLUDE_SUBDOMAINS</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="n">SECURE_HSTS_PRELOAD</span> <span class="o">=</span> <span class="kc">True</span>
+
+<span class="c1"># Security Headers</span>
+<span class="n">SECURE_BROWSER_XSS_FILTER</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="n">SECURE_CONTENT_TYPE_NOSNIFF</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="n">X_FRAME_OPTIONS</span> <span class="o">=</span> <span class="s1">&#39;DENY&#39;</span>
+
+<span class="c1"># Database</span>
+<span class="n">DATABASES</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;default&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s1">&#39;ENGINE&#39;</span><span class="p">:</span> <span class="n">config</span><span class="p">(</span><span class="s1">&#39;DATABASE_ENGINE&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s1">&#39;django.db.backends.sqlite3&#39;</span><span class="p">),</span>
+        <span class="s1">&#39;NAME&#39;</span><span class="p">:</span> <span class="n">config</span><span class="p">(</span><span class="s1">&#39;DATABASE_NAME&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="n">BASE_DIR</span> <span class="o">/</span> <span class="s1">&#39;db.sqlite3&#39;</span><span class="p">),</span>
+        <span class="s1">&#39;USER&#39;</span><span class="p">:</span> <span class="n">config</span><span class="p">(</span><span class="s1">&#39;DATABASE_USER&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">),</span>
+        <span class="s1">&#39;PASSWORD&#39;</span><span class="p">:</span> <span class="n">config</span><span class="p">(</span><span class="s1">&#39;DATABASE_PASSWORD&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">),</span>
+        <span class="s1">&#39;HOST&#39;</span><span class="p">:</span> <span class="n">config</span><span class="p">(</span><span class="s1">&#39;DATABASE_HOST&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s1">&#39;localhost&#39;</span><span class="p">),</span>
+        <span class="s1">&#39;PORT&#39;</span><span class="p">:</span> <span class="n">config</span><span class="p">(</span><span class="s1">&#39;DATABASE_PORT&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">),</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1"># Logging</span>
+<span class="n">LOGGING</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;version&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="s1">&#39;disable_existing_loggers&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="s1">&#39;formatters&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s1">&#39;verbose&#39;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s1">&#39;format&#39;</span><span class="p">:</span> <span class="s1">&#39;</span><span class="si">{levelname}</span><span class="s1"> </span><span class="si">{asctime}</span><span class="s1"> </span><span class="si">{module}</span><span class="s1"> </span><span class="si">{message}</span><span class="s1">&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;style&#39;</span><span class="p">:</span> <span class="s1">&#39;{&#39;</span><span class="p">,</span>
+        <span class="p">},</span>
+    <span class="p">},</span>
+    <span class="s1">&#39;handlers&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s1">&#39;file&#39;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s1">&#39;level&#39;</span><span class="p">:</span> <span class="s1">&#39;ERROR&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;class&#39;</span><span class="p">:</span> <span class="s1">&#39;logging.FileHandler&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;filename&#39;</span><span class="p">:</span> <span class="s1">&#39;/var/log/django/webhooks_error.log&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;formatter&#39;</span><span class="p">:</span> <span class="s1">&#39;verbose&#39;</span><span class="p">,</span>
+        <span class="p">},</span>
+    <span class="p">},</span>
+    <span class="s1">&#39;loggers&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s1">&#39;django&#39;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s1">&#39;handlers&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;file&#39;</span><span class="p">],</span>
+            <span class="s1">&#39;level&#39;</span><span class="p">:</span> <span class="s1">&#39;ERROR&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;propagate&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="p">},</span>
+    <span class="p">},</span>
+<span class="p">}</span>
+
+<span class="c1"># Static Files</span>
+<span class="n">STATIC_ROOT</span> <span class="o">=</span> <span class="n">BASE_DIR</span> <span class="o">/</span> <span class="s1">&#39;static&#39;</span>
+<span class="n">STATIC_URL</span> <span class="o">=</span> <span class="s1">&#39;/static/&#39;</span>
+
+<span class="c1"># Media Files</span>
+<span class="n">MEDIA_ROOT</span> <span class="o">=</span> <span class="n">BASE_DIR</span> <span class="o">/</span> <span class="s1">&#39;media&#39;</span>
+<span class="n">MEDIA_URL</span> <span class="o">=</span> <span class="s1">&#39;/media/&#39;</span>
+</code></pre></div>
+<hr />
+<h2 id="deployment-steps">Deployment Steps</h2>
+<h3 id="1-prepare-server">1. Prepare Server</h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># Update system</span>
+sudo<span class="w"> </span>apt-get<span class="w"> </span>update
+sudo<span class="w"> </span>apt-get<span class="w"> </span>upgrade<span class="w"> </span>-y
+
+<span class="c1"># Install dependencies</span>
+sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>python3<span class="w"> </span>python3-pip<span class="w"> </span>python3-venv<span class="w"> </span>nginx<span class="w"> </span>postgresql
+
+<span class="c1"># Create application user</span>
+sudo<span class="w"> </span>useradd<span class="w"> </span>-m<span class="w"> </span>-s<span class="w"> </span>/bin/bash<span class="w"> </span>webhooks
+</code></pre></div>
+<h3 id="2-deploy-code">2. Deploy Code</h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># Clone repository</span>
+sudo<span class="w"> </span>-u<span class="w"> </span>webhooks<span class="w"> </span>git<span class="w"> </span>clone<span class="w"> </span>&lt;repository-url&gt;<span class="w"> </span>/path/to/project
+<span class="nb">cd</span><span class="w"> </span>/path/to/project
+
+<span class="c1"># Create virtual environment</span>
+sudo<span class="w"> </span>-u<span class="w"> </span>webhooks<span class="w"> </span>python3<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>venv
+
+<span class="c1"># Install dependencies</span>
+sudo<span class="w"> </span>-u<span class="w"> </span>webhooks<span class="w"> </span>./venv/bin/pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>requirements.txt
+sudo<span class="w"> </span>-u<span class="w"> </span>webhooks<span class="w"> </span>./venv/bin/pip<span class="w"> </span>install<span class="w"> </span>gunicorn
+</code></pre></div>
+<h3 id="3-configure-environment">3. Configure Environment</h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># Create .env file</span>
+sudo<span class="w"> </span>-u<span class="w"> </span>webhooks<span class="w"> </span>nano<span class="w"> </span>/path/to/project/.env
+<span class="c1"># Add production environment variables</span>
+</code></pre></div>
+<h3 id="4-setup-database">4. Setup Database</h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># Run migrations</span>
+sudo<span class="w"> </span>-u<span class="w"> </span>webhooks<span class="w"> </span>./venv/bin/python<span class="w"> </span>manage.py<span class="w"> </span>migrate
+
+<span class="c1"># Create superuser</span>
+sudo<span class="w"> </span>-u<span class="w"> </span>webhooks<span class="w"> </span>./venv/bin/python<span class="w"> </span>manage.py<span class="w"> </span>createsuperuser
+
+<span class="c1"># Collect static files</span>
+sudo<span class="w"> </span>-u<span class="w"> </span>webhooks<span class="w"> </span>./venv/bin/python<span class="w"> </span>manage.py<span class="w"> </span>collectstatic<span class="w"> </span>--noinput
+</code></pre></div>
+<h3 id="5-configure-web-server">5. Configure Web Server</h3>
+<p>Follow the <a href="#web-server-configuration">Web Server Configuration</a> section above.</p>
+<h3 id="6-start-services">6. Start Services</h3>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>systemctl<span class="w"> </span>daemon-reload
+sudo<span class="w"> </span>systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>webhooks
+sudo<span class="w"> </span>systemctl<span class="w"> </span>start<span class="w"> </span>webhooks
+sudo<span class="w"> </span>systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>nginx
+sudo<span class="w"> </span>systemctl<span class="w"> </span>start<span class="w"> </span>nginx
+</code></pre></div>
+<h3 id="7-verify-deployment">7. Verify Deployment</h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># Check service status</span>
+sudo<span class="w"> </span>systemctl<span class="w"> </span>status<span class="w"> </span>webhooks
+sudo<span class="w"> </span>systemctl<span class="w"> </span>status<span class="w"> </span>nginx
+
+<span class="c1"># Test endpoint</span>
+curl<span class="w"> </span>-I<span class="w"> </span>https://your-domain.com/api/V1/webhooks/order/
+
+<span class="c1"># Check logs</span>
+sudo<span class="w"> </span>tail<span class="w"> </span>-f<span class="w"> </span>/var/log/nginx/webhooks_access.log
+sudo<span class="w"> </span>tail<span class="w"> </span>-f<span class="w"> </span>/var/log/django/webhooks_error.log
+</code></pre></div>
+<hr />
+<h2 id="monitoring">Monitoring</h2>
+<h3 id="health-check-endpoint">Health Check Endpoint</h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># views.py</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">rest_framework.views</span><span class="w"> </span><span class="kn">import</span> <span class="n">APIView</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">rest_framework.response</span><span class="w"> </span><span class="kn">import</span> <span class="n">Response</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">django.db</span><span class="w"> </span><span class="kn">import</span> <span class="n">connection</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">HealthCheckView</span><span class="p">(</span><span class="n">APIView</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="c1"># Check database connection</span>
+            <span class="n">connection</span><span class="o">.</span><span class="n">ensure_connection</span><span class="p">()</span>
+            <span class="n">db_status</span> <span class="o">=</span> <span class="s1">&#39;healthy&#39;</span>
+        <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+            <span class="n">db_status</span> <span class="o">=</span> <span class="s1">&#39;unhealthy&#39;</span>
+
+        <span class="k">return</span> <span class="n">Response</span><span class="p">({</span>
+            <span class="s1">&#39;status&#39;</span><span class="p">:</span> <span class="s1">&#39;healthy&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;database&#39;</span><span class="p">:</span> <span class="n">db_status</span><span class="p">,</span>
+            <span class="s1">&#39;timestamp&#39;</span><span class="p">:</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">isoformat</span><span class="p">()</span>
+        <span class="p">})</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="c1"># urls.py</span>
+<span class="n">path</span><span class="p">(</span><span class="s1">&#39;health/&#39;</span><span class="p">,</span> <span class="n">HealthCheckView</span><span class="o">.</span><span class="n">as_view</span><span class="p">(),</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;health-check&#39;</span><span class="p">),</span>
+</code></pre></div>
+<h3 id="monitoring-tools">Monitoring Tools</h3>
+<h4 id="1-django-debug-toolbar-development-only">1. Django Debug Toolbar (Development Only)</h4>
+<div class="highlight"><pre><span></span><code>pip<span class="w"> </span>install<span class="w"> </span>django-debug-toolbar
+</code></pre></div>
+<h4 id="2-sentry-error-tracking">2. Sentry (Error Tracking)</h4>
+<div class="highlight"><pre><span></span><code>pip<span class="w"> </span>install<span class="w"> </span>sentry-sdk
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="c1"># settings.py</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">sentry_sdk</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sentry_sdk.integrations.django</span><span class="w"> </span><span class="kn">import</span> <span class="n">DjangoIntegration</span>
+
+<span class="n">sentry_sdk</span><span class="o">.</span><span class="n">init</span><span class="p">(</span>
+    <span class="n">dsn</span><span class="o">=</span><span class="n">config</span><span class="p">(</span><span class="s1">&#39;SENTRY_DSN&#39;</span><span class="p">),</span>
+    <span class="n">integrations</span><span class="o">=</span><span class="p">[</span><span class="n">DjangoIntegration</span><span class="p">()],</span>
+    <span class="n">traces_sample_rate</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span>
+    <span class="n">send_default_pii</span><span class="o">=</span><span class="kc">True</span>
+<span class="p">)</span>
+</code></pre></div>
+<h4 id="3-prometheus-grafana">3. Prometheus + Grafana</h4>
+<div class="highlight"><pre><span></span><code>pip<span class="w"> </span>install<span class="w"> </span>django-prometheus
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="c1"># settings.py</span>
+<span class="n">INSTALLED_APPS</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s1">&#39;django_prometheus&#39;</span><span class="p">,</span>
+    <span class="c1"># ...</span>
+<span class="p">]</span>
+
+<span class="n">MIDDLEWARE</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s1">&#39;django_prometheus.middleware.PrometheusBeforeMiddleware&#39;</span><span class="p">,</span>
+    <span class="c1"># ...</span>
+    <span class="s1">&#39;django_prometheus.middleware.PrometheusAfterMiddleware&#39;</span><span class="p">,</span>
+<span class="p">]</span>
+</code></pre></div>
+<hr />
+<h2 id="backup-strategy">Backup Strategy</h2>
+<h3 id="database-backup">Database Backup</h3>
+<div class="highlight"><pre><span></span><code><span class="ch">#!/bin/bash</span>
+<span class="c1"># backup.sh</span>
+
+<span class="nv">DATE</span><span class="o">=</span><span class="k">$(</span>date<span class="w"> </span>+%Y%m%d_%H%M%S<span class="k">)</span>
+<span class="nv">BACKUP_DIR</span><span class="o">=</span><span class="s2">&quot;/backups/webhooks&quot;</span>
+
+<span class="c1"># PostgreSQL backup</span>
+pg_dump<span class="w"> </span>-U<span class="w"> </span>webhooks_user<span class="w"> </span>webhooks_db<span class="w"> </span>&gt;<span class="w"> </span><span class="nv">$BACKUP_DIR</span>/db_<span class="nv">$DATE</span>.sql
+
+<span class="c1"># Compress backup</span>
+gzip<span class="w"> </span><span class="nv">$BACKUP_DIR</span>/db_<span class="nv">$DATE</span>.sql
+
+<span class="c1"># Keep only last 7 days</span>
+find<span class="w"> </span><span class="nv">$BACKUP_DIR</span><span class="w"> </span>-name<span class="w"> </span><span class="s2">&quot;db_*.sql.gz&quot;</span><span class="w"> </span>-mtime<span class="w"> </span>+7<span class="w"> </span>-delete
+</code></pre></div>
+<p><strong>Cron Job:</strong>
+<div class="highlight"><pre><span></span><code><span class="c1"># Run daily at 2 AM</span>
+<span class="m">0</span><span class="w"> </span><span class="m">2</span><span class="w"> </span>*<span class="w"> </span>*<span class="w"> </span>*<span class="w"> </span>/path/to/backup.sh
+</code></pre></div></p>
+<h3 id="media-backup">Media Backup</h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># Sync media files to backup location</span>
+rsync<span class="w"> </span>-av<span class="w"> </span>/path/to/project/media/<span class="w"> </span>/backups/webhooks/media/
+</code></pre></div>
+<hr />
+<h2 id="rollback-plan">Rollback Plan</h2>
+<h3 id="quick-rollback">Quick Rollback</h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># Stop services</span>
+sudo<span class="w"> </span>systemctl<span class="w"> </span>stop<span class="w"> </span>webhooks
+
+<span class="c1"># Revert code</span>
+<span class="nb">cd</span><span class="w"> </span>/path/to/project
+sudo<span class="w"> </span>-u<span class="w"> </span>webhooks<span class="w"> </span>git<span class="w"> </span>checkout<span class="w"> </span>&lt;previous-tag&gt;
+
+<span class="c1"># Revert database</span>
+gunzip<span class="w"> </span>/backups/webhooks/db_YYYYMMDD_HHMMSS.sql.gz
+psql<span class="w"> </span>-U<span class="w"> </span>webhooks_user<span class="w"> </span>webhooks_db<span class="w"> </span>&lt;<span class="w"> </span>/backups/webhooks/db_YYYYMMDD_HHMMSS.sql
+
+<span class="c1"># Restart services</span>
+sudo<span class="w"> </span>systemctl<span class="w"> </span>start<span class="w"> </span>webhooks
+</code></pre></div>
+<hr />
+<h2 id="performance-optimization">Performance Optimization</h2>
+<h3 id="gunicorn-tuning">Gunicorn Tuning</h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># Optimal worker count: (2 x CPU cores) + 1</span>
+<span class="c1"># For 2-core server: 5 workers</span>
+gunicorn<span class="w"> </span>--workers<span class="w"> </span><span class="m">5</span><span class="w"> </span>--bind<span class="w"> </span>unix:webhooks.sock<span class="w"> </span>app.wsgi:application
+</code></pre></div>
+<h3 id="database-optimization">Database Optimization</h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># settings.py</span>
+<span class="c1"># Connection pooling (PostgreSQL)</span>
+<span class="n">DATABASES</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;default&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="c1"># ...</span>
+        <span class="s1">&#39;CONN_MAX_AGE&#39;</span><span class="p">:</span> <span class="mi">600</span><span class="p">,</span>  <span class="c1"># 10 minutes</span>
+        <span class="s1">&#39;OPTIONS&#39;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s1">&#39;connect_timeout&#39;</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="caching">Caching</h3>
+<div class="highlight"><pre><span></span><code><span class="c1"># settings.py</span>
+<span class="n">CACHES</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;default&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s1">&#39;BACKEND&#39;</span><span class="p">:</span> <span class="s1">&#39;django.core.cache.backends.redis.RedisCache&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;LOCATION&#39;</span><span class="p">:</span> <span class="s1">&#39;redis://127.0.0.1:6379/1&#39;</span><span class="p">,</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<hr />
+<h2 id="troubleshooting">Troubleshooting</h2>
+<h3 id="common-issues">Common Issues</h3>
+<h4 id="1-502-bad-gateway">1. 502 Bad Gateway</h4>
+<div class="highlight"><pre><span></span><code><span class="c1"># Check Gunicorn is running</span>
+sudo<span class="w"> </span>systemctl<span class="w"> </span>status<span class="w"> </span>webhooks
+
+<span class="c1"># Check socket permissions</span>
+ls<span class="w"> </span>-la<span class="w"> </span>/path/to/project/webhooks.sock
+
+<span class="c1"># Check logs</span>
+sudo<span class="w"> </span>tail<span class="w"> </span>-f<span class="w"> </span>/var/log/nginx/webhooks_error.log
+</code></pre></div>
+<h4 id="2-database-connection-errors">2. Database Connection Errors</h4>
+<div class="highlight"><pre><span></span><code><span class="c1"># Test database connection</span>
+sudo<span class="w"> </span>-u<span class="w"> </span>webhooks<span class="w"> </span>./venv/bin/python<span class="w"> </span>manage.py<span class="w"> </span>dbshell
+
+<span class="c1"># Check PostgreSQL is running</span>
+sudo<span class="w"> </span>systemctl<span class="w"> </span>status<span class="w"> </span>postgresql
+</code></pre></div>
+<h4 id="3-static-files-not-loading">3. Static Files Not Loading</h4>
+<div class="highlight"><pre><span></span><code><span class="c1"># Verify collectstatic</span>
+python<span class="w"> </span>manage.py<span class="w"> </span>collectstatic<span class="w"> </span>--noinput
+
+<span class="c1"># Check Nginx configuration</span>
+sudo<span class="w"> </span>nginx<span class="w"> </span>-t
+
+<span class="c1"># Check file permissions</span>
+chmod<span class="w"> </span>-R<span class="w"> </span><span class="m">755</span><span class="w"> </span>/path/to/project/static/
+</code></pre></div>
+<hr />
+<h2 id="next-steps">Next Steps</h2>
+<ul>
+<li>Review <a href="#monitoring">Monitoring &amp; Maintenance</a> for ongoing operations</li>
+<li>Check <a href="../authentication-security/">Security Guide</a> for security hardening</li>
+<li>See <a href="../contributing/">Contributing Guide</a> for team collaboration</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.f8cc74c7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.c8b220af.min.js"></script>
+      
+    
+  </body>
+</html>

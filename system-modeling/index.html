@@ -1,0 +1,1648 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Documentation for the Django webhook notification service">
+      
+      
+      
+        <link rel="canonical" href="https://gabrieldlobo.github.io/03-Webhooks-Inventory-Management-System/system-modeling/">
+      
+      
+        <link rel="prev" href="../api-endpoints/">
+      
+      
+        <link rel="next" href="../authentication-security/">
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.12">
+    
+    
+      
+        <title>System Modeling - Webhooks Inventory Management System</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.2afb09e1.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="green" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#system-modeling" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Webhooks Inventory Management System" class="md-header__button md-logo" aria-label="Webhooks Inventory Management System" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Webhooks Inventory Management System
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              System Modeling
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="green" data-md-color-accent="indigo"  aria-hidden="true"  type="radio" name="__palette" id="__palette_0">
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/GabrielDLobo/03-Webhooks-Inventory-Management-System" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GabrielDLobo/03-Webhooks-Inventory-Management-System
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Webhooks Inventory Management System" class="md-nav__button md-logo" aria-label="Webhooks Inventory Management System" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Webhooks Inventory Management System
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/GabrielDLobo/03-Webhooks-Inventory-Management-System" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GabrielDLobo/03-Webhooks-Inventory-Management-System
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../getting-started/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Getting Started
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../project-structure/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Project Structure
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../guidelines/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Guidelines
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api-endpoints/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    API Endpoints
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    System Modeling
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    System Modeling
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#data-models" class="md-nav__link">
+    <span class="md-ellipsis">
+      Data Models
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Data Models">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#entity-relationship-diagram-erd" class="md-nav__link">
+    <span class="md-ellipsis">
+      Entity Relationship Diagram (ERD)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#webhook-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      Webhook Model
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#model-relationships" class="md-nav__link">
+    <span class="md-ellipsis">
+      Model Relationships
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#system-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      System Architecture
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="System Architecture">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#high-level-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      High-Level Architecture
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#component-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      Component Architecture
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deployment-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      Deployment Architecture
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#authentication-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      Authentication Flow
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Authentication Flow">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#current-authentication-flow-no-authentication" class="md-nav__link">
+    <span class="md-ellipsis">
+      Current Authentication Flow (No Authentication)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#recommended-authentication-flow-with-api-key" class="md-nav__link">
+    <span class="md-ellipsis">
+      Recommended Authentication Flow (With API Key)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#admin-authentication-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      Admin Authentication Flow
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#crud-operations-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      CRUD Operations Flow
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="CRUD Operations Flow">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#webhook-event-creation-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      Webhook Event Creation Flow
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#complete-crud-operations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Complete CRUD Operations
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#security-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      Security Flow
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Security Flow">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#current-security-flow-minimal" class="md-nav__link">
+    <span class="md-ellipsis">
+      Current Security Flow (Minimal)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#recommended-security-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      Recommended Security Flow
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#data-security-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      Data Security Flow
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#notification-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      Notification Flow
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Notification Flow">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#whatsapp-notification-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      WhatsApp Notification Flow
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#email-notification-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      Email Notification Flow
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#business-logic-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      Business Logic Flow
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Business Logic Flow">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#value-calculation-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      Value Calculation Flow
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#complete-request-processing-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      Complete Request Processing Flow
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#error-handling-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      Error Handling Flow
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Error Handling Flow">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#exception-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      Exception Flow
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#next-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      Next Steps
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../authentication-security/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Authentication & Security
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../development/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Development
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../testing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Testing
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../deploy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Deploy
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../contributing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Contributing
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../release-notes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Release Notes
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#data-models" class="md-nav__link">
+    <span class="md-ellipsis">
+      Data Models
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Data Models">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#entity-relationship-diagram-erd" class="md-nav__link">
+    <span class="md-ellipsis">
+      Entity Relationship Diagram (ERD)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#webhook-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      Webhook Model
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#model-relationships" class="md-nav__link">
+    <span class="md-ellipsis">
+      Model Relationships
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#system-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      System Architecture
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="System Architecture">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#high-level-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      High-Level Architecture
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#component-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      Component Architecture
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deployment-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      Deployment Architecture
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#authentication-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      Authentication Flow
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Authentication Flow">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#current-authentication-flow-no-authentication" class="md-nav__link">
+    <span class="md-ellipsis">
+      Current Authentication Flow (No Authentication)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#recommended-authentication-flow-with-api-key" class="md-nav__link">
+    <span class="md-ellipsis">
+      Recommended Authentication Flow (With API Key)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#admin-authentication-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      Admin Authentication Flow
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#crud-operations-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      CRUD Operations Flow
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="CRUD Operations Flow">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#webhook-event-creation-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      Webhook Event Creation Flow
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#complete-crud-operations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Complete CRUD Operations
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#security-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      Security Flow
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Security Flow">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#current-security-flow-minimal" class="md-nav__link">
+    <span class="md-ellipsis">
+      Current Security Flow (Minimal)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#recommended-security-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      Recommended Security Flow
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#data-security-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      Data Security Flow
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#notification-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      Notification Flow
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Notification Flow">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#whatsapp-notification-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      WhatsApp Notification Flow
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#email-notification-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      Email Notification Flow
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#business-logic-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      Business Logic Flow
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Business Logic Flow">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#value-calculation-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      Value Calculation Flow
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#complete-request-processing-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      Complete Request Processing Flow
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#error-handling-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      Error Handling Flow
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Error Handling Flow">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#exception-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      Exception Flow
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#next-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      Next Steps
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="system-modeling">System Modeling</h1>
+<h2 id="data-models">Data Models</h2>
+<h3 id="entity-relationship-diagram-erd">Entity Relationship Diagram (ERD)</h3>
+<div class="highlight"><pre><span></span><code>erDiagram
+    Webhook {
+        UUID id PK
+        string event_type
+        text event
+        datetime updated_at
+        datetime created_at
+    }
+</code></pre></div>
+<h3 id="webhook-model">Webhook Model</h3>
+<table>
+<thead>
+<tr>
+<th>Attribute</th>
+<th>Type</th>
+<th>Constraints</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>id</code></td>
+<td>UUID</td>
+<td>Primary Key, Auto-generated</td>
+<td>Unique identifier</td>
+</tr>
+<tr>
+<td><code>event_type</code></td>
+<td>String(50)</td>
+<td>Nullable</td>
+<td>Type of webhook event</td>
+</tr>
+<tr>
+<td><code>event</code></td>
+<td>Text</td>
+<td>Nullable</td>
+<td>Full JSON payload</td>
+</tr>
+<tr>
+<td><code>updated_at</code></td>
+<td>DateTime</td>
+<td>Auto-now</td>
+<td>Last modification timestamp</td>
+</tr>
+<tr>
+<td><code>created_at</code></td>
+<td>DateTime</td>
+<td>Auto-now-add</td>
+<td>Creation timestamp</td>
+</tr>
+</tbody>
+</table>
+<h3 id="model-relationships">Model Relationships</h3>
+<p>The <code>Webhook</code> model is a standalone entity with no foreign key relationships. It serves as an audit log for all incoming webhook events.</p>
+<hr />
+<h2 id="system-architecture">System Architecture</h2>
+<h3 id="high-level-architecture">High-Level Architecture</h3>
+<div class="highlight"><pre><span></span><code>flowchart TB
+    subgraph &quot;Main Inventory System&quot;
+        A[Inventory Management]
+    end
+
+    subgraph &quot;Webhooks Management System&quot;
+        B[WebhookOrderView]
+        C[Webhook Model]
+        D[CallMeBot Service]
+        E[Email Service]
+    end
+
+    subgraph &quot;External Services&quot;
+        F[CallMeBot API]
+        G[SMTP Server]
+    end
+
+    subgraph &quot;Data Storage&quot;
+        H[(SQLite Database)]
+    end
+
+    A --&gt;|POST /api/V1/webhooks/order/| B
+    B --&gt;|Persist| C
+    C --&gt; H
+    B --&gt;|Send Message| D
+    B --&gt;|Send Email| E
+    D --&gt; F
+    E --&gt; G
+</code></pre></div>
+<h3 id="component-architecture">Component Architecture</h3>
+<div class="highlight"><pre><span></span><code>flowchart LR
+    subgraph &quot;Presentation Layer&quot;
+        A[REST API Endpoint]
+        B[Django Admin]
+    end
+
+    subgraph &quot;Business Logic Layer&quot;
+        C[WebhookOrderView]
+        D[Business Calculations]
+    end
+
+    subgraph &quot;Data Access Layer&quot;
+        E[Webhook Model]
+        F[Django ORM]
+    end
+
+    subgraph &quot;Integration Layer&quot;
+        G[CallMeBot Service]
+        H[Email Service]
+    end
+
+    A --&gt; C
+    B --&gt; E
+    C --&gt; D
+    C --&gt; E
+    E --&gt; F
+    C --&gt; G
+    C --&gt; H
+</code></pre></div>
+<h3 id="deployment-architecture">Deployment Architecture</h3>
+<div class="highlight"><pre><span></span><code>flowchart TB
+    subgraph &quot;Client Layer&quot;
+        A[Main Inventory System]
+        B[Admin User]
+    end
+
+    subgraph &quot;Web Server&quot;
+        C[Nginx / Apache]
+        D[Gunicorn / uWSGI]
+    end
+
+    subgraph &quot;Application Layer&quot;
+        E[Django Application]
+        F[CallMeBot Service]
+        G[Email Service]
+    end
+
+    subgraph &quot;Data Layer&quot;
+        H[(SQLite / PostgreSQL)]
+        I[Static Files]
+    end
+
+    subgraph &quot;External Services&quot;
+        J[CallMeBot API]
+        K[SMTP Server]
+    end
+
+    A --&gt; C
+    B --&gt; C
+    C --&gt; D
+    D --&gt; E
+    E --&gt; F
+    E --&gt; G
+    E --&gt; H
+    E --&gt; I
+    F --&gt; J
+    G --&gt; K
+</code></pre></div>
+<hr />
+<h2 id="authentication-flow">Authentication Flow</h2>
+<h3 id="current-authentication-flow-no-authentication">Current Authentication Flow (No Authentication)</h3>
+<div class="highlight"><pre><span></span><code>flowchart LR
+    A[Client] --&gt;|POST Request| B[WebhookOrderView]
+    B --&gt;|No Auth Check| C[Process Event]
+    C --&gt; D[Return Response]
+
+    style A fill:#e1f5ff
+    style B fill:#fff3cd
+    style C fill:#d4edda
+</code></pre></div>
+<h3 id="recommended-authentication-flow-with-api-key">Recommended Authentication Flow (With API Key)</h3>
+<div class="highlight"><pre><span></span><code>sequenceDiagram
+    participant Client
+    participant API
+    participant Auth
+    participant Database
+    participant Notification
+
+    Client-&gt;&gt;API: POST /api/V1/webhooks/order/&lt;br/&gt;+ API-Key header
+    API-&gt;&gt;Auth: Validate API Key
+    Auth--&gt;&gt;API: Valid/Invalid
+    alt Invalid API Key
+        API--&gt;&gt;Client: 401 Unauthorized
+    else Valid API Key
+        API-&gt;&gt;Database: Persist Event
+        Database--&gt;&gt;API: Event Saved
+        API-&gt;&gt;Notification: Send Notifications
+        Notification--&gt;&gt;API: Notifications Sent
+        API--&gt;&gt;Client: 200 OK + Calculated Data
+    end
+</code></pre></div>
+<h3 id="admin-authentication-flow">Admin Authentication Flow</h3>
+<div class="highlight"><pre><span></span><code>flowchart TD
+    A[User] --&gt;|Navigate to /admin/| B{Authenticated?}
+    B --&gt;|No| C[Login Page]
+    C --&gt;|Enter Credentials| D[Django Auth]
+    D --&gt;|Validate| E{Valid?}
+    E --&gt;|No| C
+    E --&gt;|Yes| F[Create Session]
+    F --&gt; G[Admin Dashboard]
+    B --&gt;|Yes| G
+    G --&gt;|Manage Webhooks| H[Webhook CRUD]
+</code></pre></div>
+<hr />
+<h2 id="crud-operations-flow">CRUD Operations Flow</h2>
+<h3 id="webhook-event-creation-flow">Webhook Event Creation Flow</h3>
+<div class="highlight"><pre><span></span><code>flowchart TD
+    A[Inventory System] --&gt;|POST Request| B[WebhookOrderView]
+    B --&gt; C{Validate Request}
+    C --&gt;|Invalid| D[Return 400 Error]
+    C --&gt;|Valid| E[Create Webhook Record]
+    E --&gt; F[Calculate total_value]
+    F --&gt; G[Calculate profit_value]
+    G --&gt; H[Send WhatsApp Notification]
+    H --&gt; I[Send Email Notification]
+    I --&gt; J{Notifications Success?}
+    J --&gt;|Yes| K[Return 200 OK]
+    J --&gt;|No| K
+    K --&gt; L[Inventory System Receives Response]
+
+    style A fill:#e1f5ff
+    style K fill:#d4edda
+    style D fill:#f8d7da
+</code></pre></div>
+<h3 id="complete-crud-operations">Complete CRUD Operations</h3>
+<div class="highlight"><pre><span></span><code>flowchart LR
+    subgraph &quot;Create&quot;
+        A1[POST /api/V1/webhooks/order/] --&gt; A2[Webhook.objects.create]
+        A2 --&gt; A3[(Database)]
+    end
+
+    subgraph &quot;Read&quot;
+        B1[GET /admin/] --&gt; B2[Webhook.objects.all]
+        B2 --&gt; B3[(Database)]
+        B3 --&gt; B4[Admin Display]
+    end
+
+    subgraph &quot;Update&quot;
+        C1[Admin Edit] --&gt; C2[Webhook.save]
+        C2 --&gt; C3[(Database)]
+    end
+
+    subgraph &quot;Delete&quot;
+        D1[Admin Delete] --&gt; D2[Webhook.delete]
+        D2 --&gt; D3[(Database)]
+    end
+</code></pre></div>
+<hr />
+<h2 id="security-flow">Security Flow</h2>
+<h3 id="current-security-flow-minimal">Current Security Flow (Minimal)</h3>
+<div class="highlight"><pre><span></span><code>flowchart LR
+    A[Request] --&gt; B[No Authentication]
+    B --&gt; C[No Authorization]
+    C --&gt; D[Process Request]
+    D --&gt; E[Return Response]
+
+    style A fill:#e1f5ff
+    style B fill:#f8d7da
+    style C fill:#f8d7da
+    style E fill:#fff3cd
+</code></pre></div>
+<h3 id="recommended-security-flow">Recommended Security Flow</h3>
+<div class="highlight"><pre><span></span><code>flowchart TD
+    A[Incoming Request] --&gt; B{HTTPS?}
+    B --&gt;|No| C[Reject Request]
+    B --&gt;|Yes| D{API Key Present?}
+    D --&gt;|No| E[Return 401]
+    D --&gt;|Yes| F{API Key Valid?}
+    F --&gt;|No| E
+    F --&gt;|Yes| G{Rate Limit OK?}
+    G --&gt;|No| H[Return 429]
+    G --&gt;|Yes| I{Payload Valid?}
+    I --&gt;|No| J[Return 400]
+    I --&gt;|Yes| K[Process Request]
+    K --&gt; L[Log Event]
+    L --&gt; M[Return Response]
+
+    style A fill:#e1f5ff
+    style C fill:#f8d7da
+    style E fill:#f8d7da
+    style H fill:#f8d7da
+    style J fill:#f8d7da
+    style M fill:#d4edda
+</code></pre></div>
+<h3 id="data-security-flow">Data Security Flow</h3>
+<div class="highlight"><pre><span></span><code>flowchart TB
+    subgraph &quot;Data In Transit&quot;
+        A[Client] --&gt;|HTTPS/TLS| B[Server]
+    end
+
+    subgraph &quot;Data at Rest&quot;
+        B --&gt;|Encrypt| C[(Database)]
+    end
+
+    subgraph &quot;Sensitive Data Handling&quot;
+        D[Environment Variables] --&gt; E[Application]
+        E --&gt;|Never Log| F[API Keys]
+        E --&gt;|Never Log| G[Passwords]
+        E --&gt;|Never Log| H[Secret Keys]
+    end
+
+    subgraph &quot;Audit Trail&quot;
+        I[All Requests] --&gt; J[Webhook Log]
+        J --&gt; K[Admin Access Log]
+    end
+</code></pre></div>
+<hr />
+<h2 id="notification-flow">Notification Flow</h2>
+<h3 id="whatsapp-notification-flow">WhatsApp Notification Flow</h3>
+<div class="highlight"><pre><span></span><code>sequenceDiagram
+    participant V as WebhookOrderView
+    participant M as outflow_message
+    participant C as CallMeBot Service
+    participant A as CallMeBot API
+    participant W as WhatsApp
+
+    V-&gt;&gt;M: Format Message
+    M--&gt;&gt;V: Formatted Message
+    V-&gt;&gt;C: send_message()
+    C-&gt;&gt;A: HTTP GET Request
+    A-&gt;&gt;W: Send WhatsApp Message
+    W--&gt;&gt;A: Delivery Confirmation
+    A--&gt;&gt;C: Response
+    C--&gt;&gt;V: Result
+</code></pre></div>
+<h3 id="email-notification-flow">Email Notification Flow</h3>
+<div class="highlight"><pre><span></span><code>sequenceDiagram
+    participant V as WebhookOrderView
+    participant T as outflow.html Template
+    participant D as Django Email
+    participant S as SMTP Server
+    participant R as Recipient
+
+    V-&gt;&gt;T: Render Template
+    T--&gt;&gt;V: HTML Content
+    V-&gt;&gt;D: send_mail()
+    D-&gt;&gt;S: SMTP Connection
+    S-&gt;&gt;R: Deliver Email
+    R--&gt;&gt;S: Acknowledgment
+    S--&gt;&gt;D: Send Status
+    D--&gt;&gt;V: Result
+</code></pre></div>
+<hr />
+<h2 id="business-logic-flow">Business Logic Flow</h2>
+<h3 id="value-calculation-flow">Value Calculation Flow</h3>
+<div class="highlight"><pre><span></span><code>flowchart LR
+    A[Request Data] --&gt; B[Extract Values]
+    B --&gt; C[Calculate total_value]
+    C --&gt; D[selling_price × quantity]
+    D --&gt; E[Calculate profit_value]
+    E --&gt; F[total_value - cost_price × quantity]
+    F --&gt; G[Return Results]
+
+    style A fill:#e1f5ff
+    style G fill:#d4edda
+</code></pre></div>
+<h3 id="complete-request-processing-flow">Complete Request Processing Flow</h3>
+<div class="highlight"><pre><span></span><code>flowchart TD
+    A[POST Request] --&gt; B[Parse JSON Body]
+    B --&gt; C[Extract Fields]
+    C --&gt; D{Required Fields Present?}
+    D --&gt;|No| E[Return 400]
+    D --&gt;|Yes| F[Create Webhook Record]
+    F --&gt; G[Calculate Business Values]
+    G --&gt; H[Format WhatsApp Message]
+    H --&gt; I[Send WhatsApp Notification]
+    I --&gt; J[Render Email Template]
+    J --&gt; K[Send Email Notification]
+    K --&gt; L[Build Response]
+    L --&gt; M[Return 200 OK]
+
+    style A fill:#e1f5ff
+    style E fill:#f8d7da
+    style M fill:#d4edda
+</code></pre></div>
+<hr />
+<h2 id="error-handling-flow">Error Handling Flow</h2>
+<h3 id="exception-flow">Exception Flow</h3>
+<div class="highlight"><pre><span></span><code>flowchart TD
+    A[Request Processing] --&gt; B{Error Occurs?}
+    B --&gt;|No| C[Success Response]
+    B --&gt;|Yes| D{Error Type}
+    D --&gt;|KeyError| E[Log Missing Field]
+    E --&gt; F[Return 400]
+    D --&gt;|RequestException| G[Log Service Error]
+    G --&gt; H[Continue Processing]
+    D --&gt;|Exception| I[Log Unexpected Error]
+    I --&gt; J[Return 500]
+
+    style A fill:#e1f5ff
+    style C fill:#d4edda
+    style F fill:#fff3cd
+    style H fill:#fff3cd
+    style J fill:#f8d7da
+</code></pre></div>
+<hr />
+<h2 id="next-steps">Next Steps</h2>
+<ul>
+<li>Review <a href="../api-endpoints/">API Endpoints</a> for detailed endpoint documentation</li>
+<li>Check <a href="../authentication-security/">Authentication &amp; Security</a> for security implementation details</li>
+<li>See <a href="../development/">Development Guide</a> for implementation guidelines</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.f8cc74c7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.c8b220af.min.js"></script>
+      
+    
+  </body>
+</html>
