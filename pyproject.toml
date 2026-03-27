@@ -1,0 +1,7 @@
+...
+[tool.taskipy.tasks]
+lint = 'ruff check'
+pre_format = 'ruff check --fix'
+format = 'ruff format'
+run = 'fastapi dev car_api/app.py'
+docs = 'mkdocs serve -a 127.0.0.1:8001'

@@ -4,9 +4,10 @@ This README is now the project documentation entry point.
 
 ## Documentation
 
-- Main docs: [docs/index.md](docs/index.md)
-- Quick start guide: [docs/getting-started.md](docs/getting-started.md)
-- API endpoints: [docs/api-endpoints.md](docs/api-endpoints.md)
+- Live docs (HTML): https://gabrieldlobo.github.io/03-Webhooks-Inventory-Management-System/
+- Main docs: [Home](https://gabrieldlobo.github.io/03-Webhooks-Inventory-Management-System/)
+- Quick start guide: [Getting Started](https://gabrieldlobo.github.io/03-Webhooks-Inventory-Management-System/getting-started/)
+- API endpoints: [API Endpoints](https://gabrieldlobo.github.io/03-Webhooks-Inventory-Management-System/api-endpoints/)
 
 ## Stack and Persistence
 
