@@ -1,0 +1,39 @@
+site_name: Webhooks Inventory Management System
+site_description: Documentation for the Django webhook notification service
+site_url: https://gabrieldlobo.github.io/03-Webhooks-Inventory-Management-System/
+repo_url: https://github.com/GabrielDLobo/03-Webhooks-Inventory-Management-System
+repo_name: GabrielDLobo/03-Webhooks-Inventory-Management-System
+edit_uri: edit/master/docs/
+
+docs_dir: docs
+
+theme:
+  name: material
+  language: en
+  palette:
+    - scheme: default
+      primary: green
+      accent: indigo
+
+plugins:
+  - search
+
+markdown_extensions:
+  - tables
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+
+nav:
+  - Home: index.md
+  - Getting Started: getting-started.md
+  - Project Structure: project-structure.md
+  - Guidelines: guidelines.md
+  - API Endpoints: api-endpoints.md
+  - System Modeling: system-modeling.md
+  - Authentication & Security: authentication-security.md
+  - Development: development.md
+  - Testing: testing.md
+  - Deploy: deploy.md
+  - Contributing: contributing.md
+  - Release Notes: release-notes.md
